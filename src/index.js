@@ -38,17 +38,18 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    var words = ''
-    expr.split(" ").forEach(cur => {
-        if(cur === ""){
-            words += " "
-        }else{
-            if(MORSE_TABLE[cur]){
-                words += MORSE_TABLE[cur]
-            }
-        } 
-    });
-    return (words.split("  ")).join(" ")
+    const tests = expr.split('**********');
+
+    let str = '';
+    
+    for (let i = 0; i < tests.length; i ++) {
+      for (let j = 0; j < tests[i].length; j += 10) {
+        let key = tests[i].slice(j, j + 10).replace(/[11]{2}/g, '-').replace(/[00]{2}/g,'').replace(/10/gi, '.');
+        str += MORSE_TABLE[key];
+      }
+      str += ' ';
+    }
+      return str.slice(0, -1);
 }
 
 module.exports = {
